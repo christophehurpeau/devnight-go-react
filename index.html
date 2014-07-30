@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+    </head>
+    <body>
+        <h1>Tweets</h1>
+        <h3>Add a new user</h3>
+
+        <form action="/save" method="POST">
+        <div><input name="name" required="required"></div>
+        <div><input type="submit" value="Save"></div>
+        </form>
+
+
+        <ul>
+        {{range .Usernames}}
+            <li>{{.}}</li>
+        {{end}}
+        </ul>
+    </body>
+</html>
