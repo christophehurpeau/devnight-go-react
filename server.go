@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 	"html/template"
     "net/http"
     "github.com/gorilla/sessions"
@@ -11,7 +10,7 @@ import (
 var store = sessions.NewCookieStore([]byte("nightdev"))
 
 type TemplateData struct {
-    Usernames []string
+    Usernames string
 }
 
 
@@ -19,18 +18,17 @@ const SESSION_NAME = "devnight"
 var indexView, _ = template.ParseFiles("index.html")
 
 func main() {
-	http.Handle("/css", http.FileServer(http.Dir("./static/css")))
+	http.Handle("/css/", http.FileServer(http.Dir("./static/")))
+	http.Handle("/js/", http.FileServer(http.Dir("./static/")))
     http.HandleFunc("/", func (w http.ResponseWriter, r *http.Request) {
         session, _ := store.Get(r, SESSION_NAME)
 
 		usernames := session.Values["users"]
 		if usernames == nil {
-			usernames = []string{}
-		} else {
-			usernames = strings.Split(usernames.(string), ",")
+			usernames = ""
 		}
 
-        data := &TemplateData{Usernames: usernames.([]string) }
+        data := &TemplateData{Usernames: usernames.(string) }
 
         indexView.Execute(w, data)
     })

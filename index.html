@@ -1,6 +1,9 @@
+<!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+        <script src="http://fb.me/react-0.11.1.js"></script>
+        <meta charset="utf-8">
     </head>
     <body>
         <h1>Tweets</h1>
@@ -11,11 +14,19 @@
         <div><input type="submit" value="Save"></div>
         </form>
 
+        <div id="content">
 
-        <ul>
-        {{range .Usernames}}
-            <li>{{.}}</li>
-        {{end}}
-        </ul>
+        </div>
+        <script src="js/build/main.js"></script>
+        <script type="text/javascript">
+            React.renderComponent(
+                UserList({ usernames: "{{ .Usernames}}" }),
+                document.getElementById('content')
+            );
+        </script>
+
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
     </body>
 </html>
